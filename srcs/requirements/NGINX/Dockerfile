@@ -1,8 +1,12 @@
 
+
 FROM nginx:alpine
 
 # Install openssl for certificate generation
 RUN apk add --no-cache openssl
+
+# Copier le fichier de configuration avant de générer le certificat
+COPY ./openssl.cnf /openssl.cnf
 
 # Generate self-signed certificate
 RUN mkdir -p /etc/ssl/private && \
@@ -14,5 +18,4 @@ RUN mkdir -p /etc/ssl/private && \
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY ./default.conf /etc/nginx/conf.d/default.conf
-COPY ./openssl.cnf /openssl.cnf
 
