@@ -1,0 +1,13 @@
+# Ignore les fichiers d'environnement et secrets
+#.env
+#*.env
+secrets/
+# Ignore les certificats SSL auto-signés
+*.key
+*.crt
+# Ignore les fichiers de base de données dump
+*.sql
+*.sql.gz
+# Ignore les fichiers temporaires
+*.swp
+*.swo

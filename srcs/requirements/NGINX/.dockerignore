@@ -1,0 +1,10 @@
+.git
+.gitignore
+*.md
+secrets/
+.env
+*.log
+__pycache__/
+node_modules/
+*.swp
+*.swo

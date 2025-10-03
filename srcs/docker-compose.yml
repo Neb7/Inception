@@ -1,0 +1,79 @@
+  nginx:
+  image: nginx
+  build: ./requirements/NGINX
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    networks:
+      - inception_net
+    volumes:
+      - wordpress_site_data:/var/www/html:ro
+      - ./NGINX/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./NGINX/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./NGINX/ssl:/etc/ssl/:ro
+    depends_on:
+      - wordpress
+
+# version: '3.8'
+
+services:
+  mariadb:
+  image: mariadb
+  build: ./requirements/MariaDB
+    container_name: mariadb
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    volumes:
+      - wordpress_db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - inception_net
+
+  wordpress:
+  image: wordpress
+  build: ./requirements/WordPress
+    container_name: wordpress
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_USER: ${MARIADB_USER}
+      WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD}
+      WORDPRESS_DB_NAME: ${MARIADB_DATABASE}
+    ports:
+      - "9000:9000"
+    volumes:
+      - wordpress_site_data:/var/www/html
+    networks:
+      - inception_net
+    depends_on:
+      - mariadb
+
+######
+networks:
+  inception_net:
+    driver: bridge
+
+volumes:
+  wordpress_db_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/benpicar/data/wordpress_db
+      o: bind
+
+  wordpress_site_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/benpicar/data/wordpress_site
+      o: bind
