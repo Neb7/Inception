@@ -4,9 +4,9 @@ DOCKER_COMPOSE = docker-compose -f srcs/docker-compose.yml
 all: init up
 
 init:
-	mkdir -p /home/benpicar/data
-	mkdir -p /home/benpicar/data/wordpress_db
-	mkdir -p /home/benpicar/data/wordpress_site
+	mkdir -p /home/ben/data
+	mkdir -p /home/ben/data/wordpress_db
+	mkdir -p /home/ben/data/wordpress_site
 
 up:
 	$(DOCKER_COMPOSE) up --build -d
