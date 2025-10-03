@@ -1,6 +1,10 @@
+
+version: '3.8'
+
+services:
   nginx:
-  image: nginx
-  build: ./requirements/NGINX
+    image: nginx
+    build: ./requirements/NGINX
     container_name: nginx
     restart: unless-stopped
     ports:
@@ -15,12 +19,9 @@
     depends_on:
       - wordpress
 
-# version: '3.8'
-
-services:
   mariadb:
-  image: mariadb
-  build: ./requirements/MariaDB
+    image: mariadb
+    build: ./requirements/MariaDB
     container_name: mariadb
     restart: unless-stopped
     env_file:
@@ -38,8 +39,8 @@ services:
       - inception_net
 
   wordpress:
-  image: wordpress
-  build: ./requirements/WordPress
+    image: wordpress
+    build: ./requirements/WordPress
     container_name: wordpress
     restart: unless-stopped
     env_file:
