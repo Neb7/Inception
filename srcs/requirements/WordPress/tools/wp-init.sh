@@ -1,7 +1,14 @@
 #!/bin/sh
 set -e
 
+
+mkdir -p /var/www/html
 cd /var/www/html
+
+# Télécharger WordPress si le dossier est vide
+if [ ! -f wp-load.php ]; then
+  wp core download --allow-root
+fi
 
 # Exporter les variables pour WP-CLI
 export WORDPRESS_DB_NAME="${WORDPRESS_DB_NAME:-$MARIADB_DATABASE}"
