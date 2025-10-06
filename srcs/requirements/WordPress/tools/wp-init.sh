@@ -7,6 +7,13 @@ until wp db check --allow-root; do
 done
 
 if ! wp core is-installed --allow-root; then
+  wp config create \
+    --dbname="$WORDPRESS_DB_NAME" \
+    --dbuser="$WORDPRESS_DB_USER" \
+    --dbpass="$WORDPRESS_DB_PASSWORD" \
+    --dbhost="$WORDPRESS_DB_HOST" \
+    --allow-root
+
   wp core install \
     --url="$DOMAIN_NAME" \
     --title="${WP_TITLE:-MonSite}" \

@@ -11,6 +11,9 @@ init:
 up:
 	$(DOCKER_COMPOSE) up --build -d
 
+stop:
+	$(DOCKER_COMPOSE) stop
+
 down:
 	$(DOCKER_COMPOSE) down
 
@@ -25,4 +28,4 @@ fclean: clean
 
 re: fclean up
 
-.PHONY: up down build clean fclean re
+.PHONY: up down build clean fclean re init stop
