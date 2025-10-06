@@ -1,5 +1,12 @@
+
 #!/bin/sh
 set -e
+
+# Exporter les variables pour WP-CLI
+export WORDPRESS_DB_NAME="${WORDPRESS_DB_NAME:-$MARIADB_DATABASE}"
+export WORDPRESS_DB_USER="${WORDPRESS_DB_USER:-$MARIADB_USER}"
+export WORDPRESS_DB_PASSWORD="${WORDPRESS_DB_PASSWORD:-$MARIADB_PASSWORD}"
+export WORDPRESS_DB_HOST="${WORDPRESS_DB_HOST:-mariadb:3306}"
 
 # Attendre que la base soit prête
 until wp db check --allow-root; do
