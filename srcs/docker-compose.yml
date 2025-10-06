@@ -15,7 +15,6 @@ services:
       - wordpress_site_data:/var/www/html:ro
       - ./requirements/NGINX/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./requirements/NGINX/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./requirements/NGINX/ssl:/etc/ssl/:ro
     depends_on:
       - wordpress
 
