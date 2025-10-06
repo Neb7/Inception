@@ -10,7 +10,12 @@ if [ ! -f wp-load.php ]; then
   wp core download --allow-root
 fi
 
-# Exporter les variables pour WP-CLI
+echo "Variables d'environnement utilisées :"
+echo "WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME:-$MARIADB_DATABASE}"
+echo "WORDPRESS_DB_USER=${WORDPRESS_DB_USER:-$MARIADB_USER}"
+echo "WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD:-$MARIADB_PASSWORD}"
+echo "WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST:-mariadb:3306}"
+
 export WORDPRESS_DB_NAME="${WORDPRESS_DB_NAME:-$MARIADB_DATABASE}"
 export WORDPRESS_DB_USER="${WORDPRESS_DB_USER:-$MARIADB_USER}"
 export WORDPRESS_DB_PASSWORD="${WORDPRESS_DB_PASSWORD:-$MARIADB_PASSWORD}"
@@ -22,12 +27,13 @@ until wp db check --allow-root; do
 done
 
 if ! wp core is-installed --allow-root; then
+  echo "Tentative de création de wp-config.php..."
   wp config create \
     --dbname="$WORDPRESS_DB_NAME" \
     --dbuser="$WORDPRESS_DB_USER" \
     --dbpass="$WORDPRESS_DB_PASSWORD" \
     --dbhost="$WORDPRESS_DB_HOST" \
-    --allow-root
+    --allow-root || { echo "Échec de la création de wp-config.php"; ls -l; exit 1; }
 
   wp core install \
     --url="$DOMAIN_NAME" \
