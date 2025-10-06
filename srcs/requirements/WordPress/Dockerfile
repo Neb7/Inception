@@ -21,8 +21,7 @@ WORKDIR /var/www/html
 RUN curl -O https://wordpress.org/latest.zip \
 	&& unzip latest.zip \
 	&& mv wordpress/* . \
-	&& rm -rf wordpress latest.zip \
-	&& wp config create --dbname=$MARIADB_DATABASE --dbuser=$MARIADB_USER --dbpass=$MARIADB_PASSWORD --dbhost=mariadb:3306 --path=/var/www/html --allow-root
+	&& rm -rf wordpress latest.zip
 
 
 # Copier le script d'init
