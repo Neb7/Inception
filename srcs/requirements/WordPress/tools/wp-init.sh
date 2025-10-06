@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+cd /var/www/html
+
 # Exporter les variables pour WP-CLI
 export WORDPRESS_DB_NAME="${WORDPRESS_DB_NAME:-$MARIADB_DATABASE}"
 export WORDPRESS_DB_USER="${WORDPRESS_DB_USER:-$MARIADB_USER}"

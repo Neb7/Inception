@@ -22,9 +22,13 @@ RUN curl -O https://wordpress.org/latest.zip \
 	&& mv wordpress/* . \
 	&& rm -rf wordpress latest.zip
 
+
 # Copier le script d'init
 COPY tools/wp-init.sh /wp-init.sh
 RUN chmod +x /wp-init.sh
+
+# Garantir les droits d'écriture sur /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 
 # Exposer le port php-fpm (par défaut 9000)
 EXPOSE 9000
