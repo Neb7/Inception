@@ -10,19 +10,19 @@ RUN apt-get update \
 	&& apt-get install -y php php-fpm php-mysql curl unzip \
 	&& apt-get clean
 
+
 # Installer WP-CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 	&& chmod +x wp-cli.phar \
 	&& mv wp-cli.phar /usr/local/bin/wp
-
-RUN	wp config create --dbname=$MARIADB_DATABASE --dbuser=$MARIADB_USER --dbpass=$MARIADB_PASSWORD --dbhost=mariadb:3306 --path=/var/www/html --allow-root
 
 # Télécharger et installer WordPress
 WORKDIR /var/www/html
 RUN curl -O https://wordpress.org/latest.zip \
 	&& unzip latest.zip \
 	&& mv wordpress/* . \
-	&& rm -rf wordpress latest.zip
+	&& rm -rf wordpress latest.zip \
+	&& wp config create --dbname=$MARIADB_DATABASE --dbuser=$MARIADB_USER --dbpass=$MARIADB_PASSWORD --dbhost=mariadb:3306 --path=/var/www/html --allow-root
 
 
 # Copier le script d'init
