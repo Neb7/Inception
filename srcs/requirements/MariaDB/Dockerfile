@@ -9,4 +9,5 @@ RUN apt-get update \
 
 EXPOSE 3306
 
+USER mysql
 CMD ["mysqld"]
