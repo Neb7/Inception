@@ -25,6 +25,7 @@ export WORDPRESS_DB_HOST="${WORDPRESS_DB_HOST:-mariadb}"
 echo "ta mere1"
 
 if [ ! -f wp-config.php ]; then
+  echo "ta mere2"
   wp config create \
     --dbname="$WORDPRESS_DB_NAME" \
     --dbuser="$WORDPRESS_DB_USER" \
