@@ -38,6 +38,7 @@ if ! wp core is-installed --allow-root; then
   echo "Contenu du dossier /var/www/html :"
   ls -la /var/www/html
   echo "Tentative de création de wp-config.php..."
+  echo "ta mere6"
   wp config create \
     --dbname="$WORDPRESS_DB_NAME" \
     --dbuser="$WORDPRESS_DB_USER" \
@@ -45,6 +46,7 @@ if ! wp core is-installed --allow-root; then
     --dbhost="$WORDPRESS_DB_HOST" \
     --allow-root
   status=$?
+  echo "ta mere7"
   if [ $status -ne 0 ]; then
     echo "Échec de la création de wp-config.php (code $status) :"
     ls -l
