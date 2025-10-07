@@ -32,6 +32,7 @@ done
 echo "ta mere2"
 
 if ! wp core is-installed --allow-root; then
+  echo "ta mere5"
   echo "UID/GID courant : $(id -u)/$(id -g)"
   echo "Droits du dossier /var/www/html :"
   ls -ld /var/www/html
