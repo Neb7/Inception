@@ -46,6 +46,7 @@ if ! wp core is-installed --allow-root; then
     --dbhost="$WORDPRESS_DB_HOST" \
     --allow-root
   status=$?
+  echo "ta mere7"
   if [ $status -ne 0 ]; then
     echo "Échec de la création de wp-config.php (code $status) :"
     ls -l
