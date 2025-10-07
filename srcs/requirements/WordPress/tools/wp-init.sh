@@ -24,8 +24,17 @@ export WORDPRESS_DB_HOST="${WORDPRESS_DB_HOST:-mariadb:3306}"
 
 echo "ta mere1"
 
-# Attendre que la base soit prête
-until wp db check --allow-root; do
+
+# Attendre que la base soit prête avec timeout et affichage d'erreur
+max_attempts=30
+attempt=1
+while ! wp db check --allow-root 2>&1; do
+  echo "Tentative $attempt: La base n'est pas prête."
+  attempt=$((attempt+1))
+  if [ $attempt -gt $max_attempts ]; then
+    echo "Timeout: Impossible de se connecter à la base après $max_attempts tentatives."
+    exit 1
+  fi
   sleep 2
 done
 
