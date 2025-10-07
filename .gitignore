@@ -6,8 +6,7 @@ secrets/
 *.key
 *.crt
 # Ignore les fichiers de base de données dump
-*.sql
-*.sql.gz
+# (ne pas ignorer les scripts d'init SQL)
 # Ignore les fichiers temporaires
 *.swp
 *.swo
