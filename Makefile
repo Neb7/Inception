@@ -8,6 +8,24 @@ init:
 	mkdir -p /home/ben/data/wordpress_db
 	mkdir -p /home/ben/data/wordpress_site
 
+build-mariadb:
+	$(DOCKER_COMPOSE) build mariadb
+
+build-wordpress:
+	$(DOCKER_COMPOSE) build wordpress
+
+build-nginx:
+	$(DOCKER_COMPOSE) build nginx
+
+up-mariadb:
+	$(DOCKER_COMPOSE) up -d mariadb
+
+up-wordpress:
+	$(DOCKER_COMPOSE) up -d wordpress
+
+up-nginx:
+	$(DOCKER_COMPOSE) up -d nginx
+
 up:
 	$(DOCKER_COMPOSE) up --build -d
 
@@ -28,4 +46,6 @@ fclean: clean
 
 re: fclean up
 
-.PHONY: up down build clean fclean re init stop
+.PHONY: up down build clean fclean re init stop \
+		build-mariadb build-wordpress build-nginx \
+		up-mariadb up-wordpress up-nginx
