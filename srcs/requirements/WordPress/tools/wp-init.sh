@@ -22,12 +22,14 @@ export WORDPRESS_DB_USER="${WORDPRESS_DB_USER:-$MARIADB_USER}"
 export WORDPRESS_DB_PASSWORD="${WORDPRESS_DB_PASSWORD:-$MARIADB_PASSWORD}"
 export WORDPRESS_DB_HOST="${WORDPRESS_DB_HOST:-mariadb:3306}"
 
-echo "ta mere"
+echo "ta mere1"
 
 # Attendre que la base soit prête
 until wp db check --allow-root; do
   sleep 2
 done
+
+echo "ta mere2"
 
 if ! wp core is-installed --allow-root; then
   echo "UID/GID courant : $(id -u)/$(id -g)"
@@ -58,6 +60,7 @@ if ! wp core is-installed --allow-root; then
     exit 1
   fi
 
+  echo "ta mere4"
   wp core install \
     --url="$DOMAIN_NAME" \
     --title="${WP_TITLE:-MonSite}" \
@@ -69,5 +72,7 @@ if ! wp core is-installed --allow-root; then
 
   wp user create "$WP_USER2" "$WP_USER2_EMAIL" --role=author --user_pass="$WP_USER2_PASSWORD" --allow-root
 fi
+
+echo "ta mere3"
 
 php-fpm
