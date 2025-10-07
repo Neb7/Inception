@@ -8,7 +8,7 @@ RUN apt-get update \
 	&& chown -R mysql:mysql /run/mysqld
 
 # Copie le script d'init SQL
-COPY tools/init.sql /docker-entrypoint-initdb.d/init.sql
+#COPY tools/init.sql /docker-entrypoint-initdb.d/init.sql
 
 EXPOSE 3306
 
