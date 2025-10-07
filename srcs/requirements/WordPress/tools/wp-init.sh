@@ -10,11 +10,11 @@ if [ ! -f wp-load.php ]; then
   wp core download --allow-root
 fi
 
-echo "Variables d'environnement utilisées :"
-echo "WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME:-$MARIADB_DATABASE}"
-echo "WORDPRESS_DB_USER=${WORDPRESS_DB_USER:-$MARIADB_USER}"
-echo "WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD:-$MARIADB_PASSWORD}"
-echo "WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST:-mariadb}"
+#echo "Variables d'environnement utilisées :"
+#echo "WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME:-$MARIADB_DATABASE}"
+#echo "WORDPRESS_DB_USER=${WORDPRESS_DB_USER:-$MARIADB_USER}"
+#echo "WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD:-$MARIADB_PASSWORD}"
+#echo "WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST:-mariadb}"
 echo "ta mere0"
 
 export WORDPRESS_DB_NAME="${WORDPRESS_DB_NAME:-$MARIADB_DATABASE}"
@@ -32,12 +32,12 @@ echo "ta mere2"
 
 if ! wp core is-installed --allow-root; then
   echo "ta mere5"
-  echo "UID/GID courant : $(id -u)/$(id -g)"
-  echo "Droits du dossier /var/www/html :"
-  ls -ld /var/www/html
-  echo "Contenu du dossier /var/www/html :"
-  ls -la /var/www/html
-  echo "Tentative de création de wp-config.php..."
+  #echo "UID/GID courant : $(id -u)/$(id -g)"
+  #echo "Droits du dossier /var/www/html :"
+  #ls -ld /var/www/html
+  #echo "Contenu du dossier /var/www/html :"
+  #ls -la /var/www/html
+  #echo "Tentative de création de wp-config.php..."
   echo "ta mere6"
   wp config create \
     --dbname="$WORDPRESS_DB_NAME" \
