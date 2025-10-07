@@ -27,13 +27,33 @@ until wp db check --allow-root; do
 done
 
 if ! wp core is-installed --allow-root; then
+  echo "UID/GID courant : $(id -u)/$(id -g)"
+  echo "Droits du dossier /var/www/html :"
+  ls -ld /var/www/html
+  echo "Contenu du dossier /var/www/html :"
+  ls -la /var/www/html
   echo "Tentative de création de wp-config.php..."
   wp config create \
     --dbname="$WORDPRESS_DB_NAME" \
     --dbuser="$WORDPRESS_DB_USER" \
     --dbpass="$WORDPRESS_DB_PASSWORD" \
     --dbhost="$WORDPRESS_DB_HOST" \
-    --allow-root || { echo "Échec de la création de wp-config.php"; ls -l; exit 1; }
+    --allow-root
+  status=$?
+  if [ $status -ne 0 ]; then
+    echo "Échec de la création de wp-config.php (code $status) :"
+    ls -l
+    echo "Contenu du dossier :"
+    ls -la
+    echo "Diagnostic WP-CLI :"
+    wp config create \
+      --dbname="$WORDPRESS_DB_NAME" \
+      --dbuser="$WORDPRESS_DB_USER" \
+      --dbpass="$WORDPRESS_DB_PASSWORD" \
+      --dbhost="$WORDPRESS_DB_HOST" \
+      --allow-root --debug
+    exit 1
+  fi
 
   wp core install \
     --url="$DOMAIN_NAME" \
