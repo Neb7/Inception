@@ -32,6 +32,7 @@ if [ ! -f wp-config.php ]; then
     --dbpass="$WORDPRESS_DB_PASSWORD" \
     --dbhost="$WORDPRESS_DB_HOST" \
     --allow-root
+  echo "ta mere4"
 fi
 
 # Créer wp-config.php avant de vérifier la base
