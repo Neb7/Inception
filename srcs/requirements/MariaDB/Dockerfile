@@ -10,10 +10,10 @@ RUN mkdir -p /run/mysqld \
 	&& chmod 777 /run/mysqld
 
 # Copie le script d'init SQL
-COPY tools/init.sql /docker-entrypoint-initdb.d/init.sql
+COPY tools/init.sql /docker-entrypoint-initdb.d/
 RUN chmod +x /docker-entrypoint-initdb.d/init.sql
 
-COPY tools/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY tools/mariadb.conf /etc/mysql/mariadb.conf.d/
 
 EXPOSE 3306
 
