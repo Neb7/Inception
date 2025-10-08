@@ -13,6 +13,8 @@ RUN mkdir -p /run/mysqld \
 COPY tools/init.sql /docker-entrypoint-initdb.d/init.sql
 RUN chmod +x /docker-entrypoint-initdb.d/init.sql
 
+COPY tools/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
+
 EXPOSE 3306
 
 
