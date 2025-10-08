@@ -17,7 +17,11 @@ COPY tools/mariadb.conf /etc/mysql/mariadb.conf.d/
 
 EXPOSE 3306
 
+COPY ./tools/mariadb.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/mariadb.sh
 
+
+ENTRYPOINT ["/usr/local/bin/mariadb.sh"]
 
 USER mysql
 CMD ["mysqld", "--bind-address=0.0.0.0"]
