@@ -2,7 +2,7 @@
 FROM debian:bullseye
 
 RUN apt-get update \
-	&& apt-get install -y mariadb-server \
+	&& apt-get install -y mariadb-server mariadb-client vim \
 	&& apt-get clean
 
 RUN mkdir -p /run/mysqld \
@@ -20,4 +20,4 @@ EXPOSE 3306
 
 
 USER mysql
-CMD ["mysqld"]
+CMD ["mysqld", "--bind-address=0.0.0.0"]
