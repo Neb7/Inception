@@ -5,9 +5,9 @@ RUN apt-get update \
 	&& apt-get install -y mariadb-server mariadb-client vim \
 	&& apt-get clean
 
-RUN mkdir -p /run/mysqld \
-	&& chown -R mysql:mysql /run/mysqld \
-	&& chmod 777 /run/mysqld
+RUN mkdir -p /run/mysqld /docker-entrypoint-initdb.d/ \
+	&& chown -R mysql:mysql /run/mysqld /docker-entrypoint-initdb.d/ \
+	&& chmod 777 /run/mysqld /docker-entrypoint-initdb.d/
 
 # Copie le script d'init SQL
 COPY tools/init.sql /docker-entrypoint-initdb.d/
@@ -23,5 +23,6 @@ RUN chmod +x /usr/local/bin/mariadb.sh
 
 ENTRYPOINT ["/usr/local/bin/mariadb.sh"]
 
-USER mysql
+# repasser sur le user mysql
+USER root
 CMD ["mysqld", "--bind-address=0.0.0.0"]
