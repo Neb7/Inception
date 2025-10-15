@@ -1,11 +1,16 @@
 #!/bin/sh
-set -e
+service mariadb start;
 
-#sleep 3600
+sleep 5;
 
-# Exécute le script d'init SQL à chaque démarrage (ignorer les erreurs si la base existe déjà)
-if [ -f /docker-entrypoint-initdb.d/init.sql ]; then
-    mariadb < /docker-entrypoint-initdb.d/init.sql || true
-fi
+mysql -u root << EOF
+CREATE DATABASE IF NOT EXISTS \`${MARIADB_DATABASE}\`;
+CREATE USER IF NOT EXISTS \`${MARIADB_USER}\`@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';
+GRANT ALL PRIVILEGES ON \`${MARIADB_DATABASE}\`.* TO '${MARIADB_USER}'@'%';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '${MARIADB_ROOT_PASSWORD}' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EOF
 
-exec "$@"
+mysqladmin -u root -p"${MARIADB_ROOT_PASSWORD}" shutdown;
+
+exec mysqld_safe;
