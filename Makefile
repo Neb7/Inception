@@ -1,4 +1,4 @@
-DOCKER_COMPOSE = docker-compose -f srcs/docker-compose.yml
+DOCKER_COMPOSE = docker compose -f srcs/docker-compose.yml
 
 
 all: init up
@@ -17,14 +17,15 @@ build-wordpress:
 build-nginx:
 	$(DOCKER_COMPOSE) build nginx
 
-up-mariadb:
-	$(DOCKER_COMPOSE) up -d mariadb
+up-mariadb:		fix-perms:
+				sudo rm -rf /home/ben/data/wordpress_db/*
+				$(DOCKER_COMPOSE) up -d mariadb
 
-up-wordpress:
-	$(DOCKER_COMPOSE) up -d wordpress
+up-wordpress:	fix-perms:
+				$(DOCKER_COMPOSE) up -d wordpress
 
-up-nginx:
-	$(DOCKER_COMPOSE) up -d nginx
+up-nginx:		fix-perms:
+				$(DOCKER_COMPOSE) up -d nginx
 
 up:
 	$(DOCKER_COMPOSE) up --build -d
@@ -46,6 +47,10 @@ fclean: clean
 
 re: fclean up
 
+fix-perms:
+	sudo chown -R 999:999 /home/ben/data/wordpress_db /home/ben/data/wordpress_site
+	sudo chmod -R 777 /home/ben/data/wordpress_db /home/ben/data/wordpress_site
+
 .PHONY: up down build clean fclean re init stop \
 		build-mariadb build-wordpress build-nginx \
-		up-mariadb up-wordpress up-nginx
+		up-mariadb up-wordpress up-nginx fix-perms
