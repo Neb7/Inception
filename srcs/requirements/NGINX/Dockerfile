@@ -1,15 +1,17 @@
-
-
-FROM nginx:alpine
+FROM debian:bullseye
 
 # Install openssl for certificate generation
-RUN apk add --no-cache openssl
+RUN apt update -y && apt upgrade -y && \
+    apt install -y nginx openssl && \
+    apt clean && rm -rf /var/lib/apt/lists/*
 
 # Copier le fichier de configuration avant de générer le certificat
-COPY ./openssl.cnf /openssl.cnf
+COPY ./tools/openssl.cnf /openssl.cnf
+
+RUN mkdir -p /etc/ssl
 
 # Generate self-signed certificate
-RUN mkdir -p /etc/ssl/private && \
+RUN mkdir -p /etc/ssl/private /etc/ssl/certs && \
 	openssl req -x509 -nodes -days 365 \
 	-newkey rsa:2048 \
 	-keyout /etc/ssl/private/nginx-selfsigned.key \
@@ -17,5 +19,5 @@ RUN mkdir -p /etc/ssl/private && \
 	-config /openssl.cnf
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY ./default.conf /etc/nginx/conf.d/default.conf
 
+CMD ["nginx", "-g", "daemon off;"]

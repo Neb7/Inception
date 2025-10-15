@@ -17,14 +17,14 @@ build-wordpress:
 build-nginx:
 	$(DOCKER_COMPOSE) build nginx
 
-up-mariadb:		fix-perms:
+up-mariadb:		fix-perms
 				sudo rm -rf /home/ben/data/wordpress_db/*
 				$(DOCKER_COMPOSE) up -d mariadb
 
-up-wordpress:	fix-perms:
+up-wordpress:	fix-perms
 				$(DOCKER_COMPOSE) up -d wordpress
 
-up-nginx:		fix-perms:
+up-nginx:		fix-perms
 				$(DOCKER_COMPOSE) up -d nginx
 
 up:
