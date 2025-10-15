@@ -18,6 +18,6 @@ RUN mkdir -p /etc/ssl/private /etc/ssl/certs && \
 	-out /etc/ssl/certs/nginx-selfsigned.crt \
 	-config /openssl.cnf
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./tools/nginx.conf /etc/nginx/nginx.conf
 
 CMD ["nginx", "-g", "daemon off;"]
