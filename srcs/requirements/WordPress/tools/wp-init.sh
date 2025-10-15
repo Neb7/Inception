@@ -12,9 +12,9 @@ if [ ! -f wp-config.php ]; then
     wp core download --allow-root
 
     mv wp-config-sample.php wp-config.php
-    sed -i "s|database_name_here|${MYSQL_DATABASE}|" wp-config.php
-    sed -i "s|username_here|${MYSQL_USER}|" wp-config.php
-    sed -i "s|password_here|${MYSQL_PASSWORD}|" wp-config.php
+    sed -i "s|database_name_here|${MARIADB_DATABASE}|" wp-config.php
+    sed -i "s|username_here|${MARIADB_USER}|" wp-config.php
+    sed -i "s|password_here|${MARIADB_PASSWORD}|" wp-config.php
     sed -i "s|localhost|mariadb|" wp-config.php
 fi
 
@@ -29,7 +29,7 @@ if ! wp core is-installed --allow-root; then
 
     wp core install \
         --url="${DOMAIN_NAME}" \
-        --title="${SITE_TITLE}" \
+        --title="${WP_TITLE}" \
         --admin_user="${WP_ADMIN_USER}" \
         --admin_password="${WP_ADMIN_PASSWORD}" \
         --admin_email="${WP_ADMIN_EMAIL}" \
