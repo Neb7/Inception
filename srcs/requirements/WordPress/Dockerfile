@@ -10,10 +10,10 @@ COPY tools/www.conf /etc/php/7.4/fpm/pool.d/
 
 EXPOSE 9000
 
-COPY tools/wordpress.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/wordpress.sh
+COPY tools/wp-init.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/wp-init.sh
 
-CMD ["/usr/local/bin/wordpress.sh"]
+CMD ["/usr/local/bin/wp-init.sh"]
 
 
 
