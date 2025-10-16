@@ -1,19 +1,19 @@
-# Utilise l'image officielle Debian comme base
 FROM debian:bookworm
 
-# Installer PHP, php-fpm, et dépendances
+# Install PHP, php-fpm, and dependencies
 RUN apt-get update \
 	&& apt-get install -y php8.2 php-fpm php-mysql mariadb-client curl \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# On Debian Bookworm the default PHP provided is 8.2; install copies the
-# generic 'php' package which maps to that version. Adjust the pool.d
-# path for PHP 8.2 so the custom pool config is placed correctly.
+# Ensure custom php-fpm pool config is placed for PHP 8.2 on Debian Bookworm
 COPY tools/www.conf /etc/php/8.2/fpm/pool.d/
 
+# Expose PHP-FPM port
 EXPOSE 9000
 
+# Copy initialization script and make it executable
 COPY tools/wp-init.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wp-init.sh
 
+# Start WordPress initialization script as the container command
 CMD ["/usr/local/bin/wp-init.sh"]

@@ -1,5 +1,6 @@
 #version: '3.8'
 
+### SERVICES ###
 services:
   nginx:
     image: nginx
@@ -58,7 +59,7 @@ services:
     networks:
       - inception_net
 
-######
+### VOLUMES ###
 networks:
   inception_net:
     driver: bridge
