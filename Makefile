@@ -56,3 +56,4 @@ fix-perms:
 .PHONY: up down build clean fclean re init stop \
 		build-mariadb build-wordpress build-nginx \
 		up-mariadb up-wordpress up-nginx fix-perms
+
