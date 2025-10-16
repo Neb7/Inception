@@ -68,12 +68,12 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/ben/data/wordpress_db
+      device: /home/benpicar/data/wordpress_db
       o: bind
 
   wordpress_site_data:
     driver: local
     driver_opts:
       type: none
-      device: /home/ben/data/wordpress_site
+      device: /home/benpicar/data/wordpress_site
       o: bind

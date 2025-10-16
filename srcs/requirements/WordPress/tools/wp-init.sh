@@ -22,11 +22,6 @@ echo "Waiting for database connection..."
 sleep 10
 
 if ! wp core is-installed --allow-root; then
-#    if [[ "${WP_ADMIN_USER}" =~ [Aa]dmin|[Aa]dministrator ]]; then
-#        echo "Error: Administrator username cannot contain 'admin', 'Admin', or 'administrator' ..."
-#        exit 1
-#    fi
-
     wp core install \
         --url="${DOMAIN_NAME}" \
         --title="${WP_TITLE}" \
@@ -51,4 +46,4 @@ fi
 
 mkdir -p /run/php
 echo "Starting PHP-FPM..."
-php-fpm7.4 -F
+php-fpm8.2 -F

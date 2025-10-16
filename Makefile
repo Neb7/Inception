@@ -4,9 +4,9 @@ DOCKER_COMPOSE = docker compose -f srcs/docker-compose.yml
 all: init up
 
 init:
-	mkdir -p /home/ben/data
-	mkdir -p /home/ben/data/wordpress_db
-	mkdir -p /home/ben/data/wordpress_site
+	mkdir -p /home/benpicar/data
+	mkdir -p /home/benpicar/data/wordpress_db
+	mkdir -p /home/benpicar/data/wordpress_site
 
 build-mariadb:
 	$(DOCKER_COMPOSE) build mariadb
@@ -18,7 +18,7 @@ build-nginx:
 	$(DOCKER_COMPOSE) build nginx
 
 up-mariadb:		fix-perms
-				sudo rm -rf /home/ben/data/wordpress_db/*
+				sudo rm -rf /home/benpicar/data/wordpress_db/*
 				$(DOCKER_COMPOSE) up -d mariadb
 
 up-wordpress:	fix-perms
@@ -27,8 +27,10 @@ up-wordpress:	fix-perms
 up-nginx:		fix-perms
 				$(DOCKER_COMPOSE) up -d nginx
 
-up:
-	$(DOCKER_COMPOSE) up --build -d
+up:				fix-perms
+				sudo rm -rf /home/benpicar/data/wordpress_db/*
+				sudo rm -rf /home/benpicar/data/wordpress_site/*
+				$(DOCKER_COMPOSE) up --build -d
 
 stop:
 	$(DOCKER_COMPOSE) stop
@@ -48,8 +50,8 @@ fclean: clean
 re: fclean up
 
 fix-perms:
-	sudo chown -R 999:999 /home/ben/data/wordpress_db /home/ben/data/wordpress_site
-	sudo chmod -R 777 /home/ben/data/wordpress_db /home/ben/data/wordpress_site
+	sudo chown -R 999:999 /home/benpicar/data/wordpress_db /home/benpicar/data/wordpress_site
+	sudo chmod -R 777 /home/benpicar/data/wordpress_db /home/benpicar/data/wordpress_site
 
 .PHONY: up down build clean fclean re init stop \
 		build-mariadb build-wordpress build-nginx \

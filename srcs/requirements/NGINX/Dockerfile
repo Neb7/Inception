@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 # Install openssl for certificate generation
 RUN apt update -y && apt upgrade -y && \
