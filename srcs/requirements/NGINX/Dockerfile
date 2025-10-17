@@ -6,7 +6,7 @@ RUN apt update -y && apt upgrade -y && \
 	apt clean && rm -rf /var/lib/apt/lists/*
 
 # Copy the OpenSSL configuration file before generating the certificate
-COPY ./tools/openssl.cnf /openssl.cnf
+COPY ./conf/openssl.cnf /openssl.cnf
 
 # Ensure the /etc/ssl directory exists
 RUN mkdir -p /etc/ssl
@@ -20,7 +20,7 @@ RUN mkdir -p /etc/ssl/private /etc/ssl/certs && \
 	-config /openssl.cnf
 
 # Copy the custom Nginx configuration into the container
-COPY ./tools/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/nginx.conf /etc/nginx/
 
 # Start nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]

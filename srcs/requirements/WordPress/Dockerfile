@@ -6,7 +6,7 @@ RUN apt-get update \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Ensure custom php-fpm pool config is placed for PHP 8.2 on Debian Bookworm
-COPY tools/www.conf /etc/php/8.2/fpm/pool.d/
+COPY conf/www.conf /etc/php/8.2/fpm/pool.d/
 
 # Expose PHP-FPM port
 EXPOSE 9000

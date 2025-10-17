@@ -6,7 +6,7 @@ RUN apt-get update \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy custom MariaDB server configuration into the container
-COPY tools/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 # Expose the default MariaDB port
 EXPOSE 3306
