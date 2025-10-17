@@ -9,10 +9,10 @@ ST = State
 L = City
 O = Organization
 OU = OrgUnit
-CN = localhost
+CN = benpicar.42.fr
 
 [ v3_req ]
 subjectAltName = @alt_names
 
 [ alt_names ]
-DNS.1 = localhost
+DNS.1 = benpicar.42.fr
