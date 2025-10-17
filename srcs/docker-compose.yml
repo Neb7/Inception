@@ -13,9 +13,9 @@ services:
       - inception_net
     volumes:
       - wordpress_site_data:/var/www/wordpress:ro
-      - ./requirements/NGINX/tools/default.conf:/etc/nginx/conf.d/default.conf
-      - ./requirements/NGINX/tools/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./requirements/NGINX/tools/openssl.cnf:/openssl.cnf
+      - ./requirements/NGINX/conf/default.conf:/etc/nginx/conf.d/default.conf
+      - ./requirements/NGINX/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./requirements/NGINX/conf/openssl.cnf:/openssl.cnf
     depends_on:
       - wordpress
 
